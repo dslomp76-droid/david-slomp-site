@@ -303,3 +303,19 @@ hr.soft{border:0;border-top:1px solid var(--line);margin:2rem 0}
     grid-template-columns: 1fr;
   }
 }
+.start-here-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 2rem;
+}
+
+.card-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .start-here-grid {
+    grid-template-columns: 1fr;
+  }
+}
