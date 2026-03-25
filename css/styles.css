@@ -250,3 +250,28 @@ hr.soft{border:0;border-top:1px solid var(--line);margin:2rem 0}
   .site-nav ul{flex-direction:column;align-items:stretch}
   .site-nav a,.nav-cta{width:100%;justify-content:center}
 }
+.card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-link:hover h3 {
+  text-decoration: underline;
+}
+
+.card-meta {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.subsection-block + .subsection-block {
+  margin-top: 2rem;
+}
+
+.subsection-heading {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
