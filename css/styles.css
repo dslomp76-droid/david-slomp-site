@@ -316,3 +316,7 @@ hr.soft{border:0;border-top:1px solid var(--line);margin:2rem 0}
   font-size: 0.9rem;
 }
 }
+.list-clean li a {
+  margin-left: 0.35rem;
+  white-space: nowrap;
+}
