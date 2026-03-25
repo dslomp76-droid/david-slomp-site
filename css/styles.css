@@ -310,4 +310,9 @@ hr.soft{border:0;border-top:1px solid var(--line);margin:2rem 0}
   .start-here-grid {
     grid-template-columns: 1fr;
   }
+  
+  .list-clean a {
+  margin-left: 0.5rem;
+  font-size: 0.9rem;
+}
 }
