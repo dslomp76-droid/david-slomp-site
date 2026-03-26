@@ -659,3 +659,29 @@ hr.soft{border:0;border-top:1px solid var(--line);margin:2rem 0}
 .hero-actions .btn {
   white-space: nowrap;
 }
+
+/* ===== HERO BUTTON STACK ===== */
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 1.4rem;
+}
+
+.hero-actions-main,
+.hero-actions-secondary {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.hero-actions .btn {
+  white-space: nowrap;
+}
+
+/* Slight visual hierarchy difference */
+.hero-actions-secondary .btn {
+  font-size: 0.95rem;
+  padding: 0.7rem 1rem;
+}
