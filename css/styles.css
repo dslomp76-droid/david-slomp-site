@@ -400,17 +400,18 @@ hr.soft{border:0;border-top:1px solid var(--line);margin:2rem 0}
 /* ===== HERO RESTRUCTURE ===== */
 
 .hero {
-  padding: 4.5rem 0 3.5rem;
+  padding: 3.5rem 0 2.5rem;
 }
 
 .hero-header {
   max-width: 900px;
-  margin-bottom: 2rem;
+  margin-bottom: 1.2rem;
 }
 
 .hero-header h1 {
-  margin-top: 0.5rem;
-  line-height: 1.1;
+  margin-top: 0.4rem;
+  line-height: 1.08;
+  max-width: 20ch;
 }
 
 .hero-grid {
@@ -422,6 +423,7 @@ hr.soft{border:0;border-top:1px solid var(--line);margin:2rem 0}
 
 .hero-copy {
   max-width: 520px;
+  margin-top: 0.2rem;
 }
 
 .hero-copy .lead {
@@ -440,6 +442,7 @@ hr.soft{border:0;border-top:1px solid var(--line);margin:2rem 0}
   max-width: 480px;
   width: 100%;
   justify-self: end;
+  margin-top: -1rem;
 }
 
 .feature-image {
