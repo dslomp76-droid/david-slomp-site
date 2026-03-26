@@ -320,3 +320,13 @@ hr.soft{border:0;border-top:1px solid var(--line);margin:2rem 0}
   margin-left: 0.35rem;
   white-space: nowrap;
 }
+
+.cta-row {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.cta-row .btn {
+  white-space: nowrap;
+}
