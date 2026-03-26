@@ -649,4 +649,13 @@ hr.soft{border:0;border-top:1px solid var(--line);margin:2rem 0}
     grid-template-columns: 1fr;
   }
 }
+.hero-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
 
+.hero-actions .btn {
+  white-space: nowrap;
+}
