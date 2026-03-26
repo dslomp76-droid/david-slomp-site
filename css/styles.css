@@ -597,3 +597,27 @@ hr.soft{border:0;border-top:1px solid var(--line);margin:2rem 0}
   gap: 0.6rem;
   flex-wrap: wrap;
 }
+
+/* ===== ABOUT PAGE: REVERSE IMAGE + TEXT ===== */
+
+.about-intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+
+  /* this flips the columns */
+  direction: rtl;
+}
+
+/* keep text readable (undo direction for content) */
+.about-intro-grid > * {
+  direction: ltr;
+}
+
+@media (max-width: 900px) {
+  .about-intro-grid {
+    grid-template-columns: 1fr;
+    direction: ltr;
+  }
+}
