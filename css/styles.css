@@ -597,4 +597,28 @@ hr.soft{border:0;border-top:1px solid var(--line);margin:2rem 0}
   gap: 0.6rem;
   flex-wrap: wrap;
 }
+/* ===== MENTORING LAYOUT ===== */
+
+.mentoring-columns {
+  align-items: center;
+}
+
+.mentoring-image-panel {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.mentoring-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+@media (max-width: 980px) {
+  .mentoring-columns {
+    grid-template-columns: 1fr;
+  }
+}
 
