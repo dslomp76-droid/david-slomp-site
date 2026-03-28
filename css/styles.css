@@ -757,3 +757,14 @@ hr.soft{border:0;border-top:1px solid var(--line);margin:2rem 0}
     max-width: 100%;
   }
 }
+.card-feature {
+  background: #173a63;
+  color: #ffffff;
+  border-color: #173a63;
+}
+
+.card-feature h3,
+.card-feature p,
+.card-feature .eyebrow {
+  color: #ffffff;
+}
