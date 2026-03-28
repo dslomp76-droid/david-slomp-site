@@ -694,3 +694,66 @@ hr.soft{border:0;border-top:1px solid var(--line);margin:2rem 0}
   font-size: 0.95rem;
   padding: 0.7rem 1rem;
 }
+.framework-group + .framework-group {
+  margin-top: 2.5rem;
+}
+
+.framework-label {
+  margin: 0 0 1rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent, #8b2332);
+}
+
+.framework-card,
+.framework-feature {
+  position: relative;
+}
+
+.framework-card-mid {
+  background: #f7f8fa;
+}
+
+.card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-bottom: 0.75rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  line-height: 1;
+  color: #173a63;
+  background: rgba(23, 58, 99, 0.08);
+}
+
+.feature-icon {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.framework-card .eyebrow,
+.framework-feature .eyebrow {
+  display: block;
+  margin-bottom: 0.65rem;
+}
+
+.framework-feature {
+  max-width: 58rem;
+  padding: 2rem;
+}
+
+.framework-card:hover,
+.framework-feature:hover {
+  transform: translateY(-2px);
+  transition: transform 0.18s ease;
+}
+
+@media (max-width: 900px) {
+  .framework-feature {
+    max-width: 100%;
+  }
+}
