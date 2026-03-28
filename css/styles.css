@@ -828,6 +828,59 @@ hr.soft{
   color: #ffffff;
   border: 1px solid rgba(255,255,255,0.18);
 }
+Good instinct — that’s exactly the right move. It will give you a visual anchor at both ends of the argument (entry + conclusion), which strengthens the section a lot.
+
+Right now, your “Designing for justice” card works because it is:
+	•	darker
+	•	visually distinct
+	•	clearly the culmination
+
+You want to give card 01 (“Rights-holders”) similar weight, but without making it feel identical.
+
+⸻
+
+What to change (clean + precise)
+
+1. Add a new modifier class in your HTML
+
+Find this block:
+
+<article class="card framework-card">
+
+Change it to:
+
+<article class="card framework-card framework-card-lead">
+
+Only apply this to card 01.
+
+⸻
+
+2. Add this CSS
+
+Add this right below your .framework-card styles:
+
+.framework-card-lead {
+  background: linear-gradient(135deg, #173a63 0%, #1e4469 100%);
+  color: #ffffff;
+  border-color: #173a63;
+}
+
+.framework-card-lead h3,
+.framework-card-lead p,
+.framework-card-lead .eyebrow {
+  color: #ffffff;
+}
+
+.framework-card-lead .card-icon {
+  background: rgba(255,255,255,0.14);
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+.framework-group:first-of-type .framework-card-lead {
+  grid-column: span 2;
+}
+
 /* ===== RESPONSIVE ===== */
 
 @media (max-width: 980px){
