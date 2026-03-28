@@ -811,7 +811,23 @@ hr.soft{
   transform:translateY(-2px);
   transition:transform .18s ease;
 }
+.framework-card-lead {
+  background: linear-gradient(135deg, #173a63 0%, #1e4469 100%);
+  color: #ffffff;
+  border-color: #173a63;
+}
 
+.framework-card-lead h3,
+.framework-card-lead p,
+.framework-card-lead .eyebrow {
+  color: #ffffff;
+}
+
+.framework-card-lead .card-icon {
+  background: rgba(255,255,255,0.14);
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,0.18);
+}
 /* ===== RESPONSIVE ===== */
 
 @media (max-width: 980px){
