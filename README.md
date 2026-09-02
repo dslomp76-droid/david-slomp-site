@@ -1,6 +1,6 @@
-# David Slomp website — static site draft (v1)
+# David Slomp professional website
 
-This package contains a deployable first-pass personal website built as a static HTML/CSS/JS site.
+Source for [davidslomp.ca](https://davidslomp.ca/), a static HTML/CSS/JavaScript site deployed with GitHub Pages.
 
 ## Files
 - `index.html` — home
@@ -10,15 +10,16 @@ This package contains a deployable first-pass personal website built as a static
 - `engagement.html`
 - `mentoring.html`
 - `contact.html`
-- `downloads/David_Slomp_CV_Jan_2025.docx`
+- `downloads/David_Slomp_CV_2026.pdf`
 - `css/styles.css`
 - `js/site.js`
+- `assets/images/` — web-ready photographs and retained source assets
 
-## What this version does
+## Site purpose
 - Presents a coherent public-facing research profile instead of a CV-only presence.
 - Uses first-person voice for the site itself.
 - Surfaces key signals quickly: current role, editorial leadership, citation impact, award, research themes, public engagement, and graduate mentoring.
-- Keeps navigation simple and deploys cleanly on GitHub Pages, Netlify, or any standard web host.
+- Keeps navigation simple and deploys cleanly on GitHub Pages.
 
 ## Public sources checked for current details (2026-03-24)
 The site text was drafted from the supplied CV and EOI, but current public facts were checked against official public sources before building:
@@ -29,27 +30,18 @@ The site text was drafted from the supplied CV and EOI, but current public facts
 - International Literacy Association Albert J. Harris Award page: confirms 2025 award.
 - Google Scholar search result: confirms 1,100+ citation scale.
 
-## Recommended next edits
-1. Add a professional headshot.
-2. Decide whether to keep “Associate Dean” broad on the public site or use the exact current portfolio wording consistently everywhere.
-3. Convert the CV to PDF and add it alongside the DOCX.
-4. Replace placeholder publication summaries with live DOI links if you want the site to serve as a discovery hub.
-5. Add direct links for selected media pieces and talks.
-6. Point a custom domain to the deployed site.
+## Maintenance
+
+- The custom domain is configured through `CNAME`.
+- `assets/images/david-slomp-hero-800.jpg` and `david-slomp-hero-1600.jpg` provide responsive, web-optimized hero images.
+- `assets/images/David SlompCMYK.jpeg` is not used on the website. It is retained as a print/media source asset.
+- Update publication links and the CV as new work is released.
+- Validate changed HTML and CSS before publishing.
 
 ## Deployment
-### GitHub Pages
-1. Create a new repository.
-2. Upload all files in this folder.
-3. In repository settings, enable GitHub Pages from the main branch.
-4. Point your custom domain after the site is live.
-
-### Netlify
-1. Zip the folder or drag the folder into Netlify Drop.
-2. Set the publish directory to the root of this folder.
-3. Add your custom domain in site settings.
+GitHub Pages publishes the site from the `main` branch. Develop changes on a branch, validate them, and merge through a pull request.
 
 ## Notes
-- This version intentionally avoids copying external images or university branding assets.
+- The site intentionally avoids copying external images or university branding assets.
 - Citation counts change over time. “1,100+ citations” was chosen to age more gracefully than an exact number.
 - The site keeps the tone measured and public-facing rather than promotional.
