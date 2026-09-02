@@ -604,9 +604,10 @@ hr.soft{
 
 .feature-image{
   width:100%;
-  aspect-ratio:4 / 4.65;
+  height:auto;
+  aspect-ratio:2 / 3;
   object-fit:cover;
-  object-position:center top;
+  object-position:90% center;
   border-radius:16px;
   display:block;
 }
@@ -861,6 +862,11 @@ hr.soft{
   .hero-portrait{
     max-width:420px;
     justify-self:start;
+  }
+
+  .feature-image{
+    aspect-ratio:3 / 2;
+    object-position:center;
   }
 
   .mentoring-columns,
