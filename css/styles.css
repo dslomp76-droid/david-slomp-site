@@ -604,7 +604,7 @@ hr.soft{
 
 .feature-image{
   width:100%;
-  height:auto;
+  height:clamp(480px, 45vw, 640px);
   aspect-ratio:2 / 3;
   object-fit:cover;
   object-position:90% center;
@@ -865,6 +865,7 @@ hr.soft{
   }
 
   .feature-image{
+    height:auto;
     aspect-ratio:3 / 2;
     object-position:center;
   }
