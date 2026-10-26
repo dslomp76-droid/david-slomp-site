@@ -60,43 +60,61 @@ def counter(value):
 
 
 def normalize_payload(payload, now):
+    stage = "response object"
     try:
-        if not isinstance(payload, dict) or "error" in payload:
+        if not isinstance(payload, dict):
             raise ValueError
+        if "error" in payload:
+            stage = "provider-reported error"
+            raise ValueError
+        stage = "provider success status"
         if payload["search_metadata"]["status"] != "Success":
             raise ValueError
+        stage = "profile ID and engine"
         params = payload["search_parameters"]
         if params["engine"] != "google_scholar_author" or params["author_id"] != AUTHOR_ID:
             raise ValueError
+        stage = "author name"
         name = " ".join(payload["author"]["name"].split()).casefold()
         if name != "david slomp":
+            # A documented name variant can be identified without logging response text;
+            # this is diagnostic only and does not relax the acceptance criterion.
+            if name in ("david h. slomp", "david h slomp"):
+                stage = "author name (documented middle-initial variant)"
             raise ValueError
+        stage = "citation table"
         table = payload["cited_by"]["table"]
         if not isinstance(table, list):
             raise ValueError
         metrics = {}
         recent_year = None
         for row in table:
+            stage = "metric row names"
             if not isinstance(row, dict) or len(row) != 1:
                 raise ValueError
             key, values = next(iter(row.items()))
             if key not in ("citations", "h_index", "i10_index") or key in metrics:
                 raise ValueError
+            stage = "all/recent column labels"
             if not isinstance(values, dict) or "all" not in values:
                 raise ValueError
             recent_keys = [key for key in values if re.fullmatch(r"since_\d{4}", key)]
             if len(recent_keys) != 1 or len(values) != 2:
                 raise ValueError
+            stage = "recent since year"
             year = int(recent_keys[0][6:])
             if not 1900 <= year <= now.year or (recent_year is not None and year != recent_year):
                 raise ValueError
             recent_year = year  # Read the provider's label; never assume a rolling year.
             all_count, recent = counter(values["all"]), counter(values[recent_keys[0]])
+            stage = "recent versus all counters"
             if recent > all_count:
                 raise ValueError
             metrics[key] = {"all": all_count, "recent": recent}
+        stage = "required citation and h-index rows"
         if not {"citations", "h_index"}.issubset(metrics):
             raise ValueError
+        stage = "mathematical counter bounds"
         for column in ("all", "recent"):
             if metrics["h_index"][column] ** 2 > metrics["citations"][column]:
                 raise ValueError
@@ -112,7 +130,8 @@ def normalize_payload(payload, now):
             "recent_since": recent_year, "metrics": metrics,
         }
     except (KeyError, TypeError, ValueError, AttributeError):
-        raise RefreshError("Incomplete, unexpected, or mismatched Scholar data; previous figures retained.") from None
+        # Stage is a fixed code label, never response text or a field value.
+        raise RefreshError(f"Scholar validation failed at {stage}; previous figures retained.") from None
 
 
 def validate_snapshot(snapshot):
