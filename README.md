@@ -30,6 +30,10 @@ The site text was drafted from the supplied CV and EOI, but current public facts
 - International Literacy Association Albert J. Harris Award page: confirms 2025 award.
 - Google Scholar search result: confirms 1,100+ citation scale.
 
+### Role correction (2026-10-26)
+
+David confirmed that he stepped down as Associate Dean at the end of August 2026 and returned to a regular faculty role. His current title is Professor, Faculty of Education, University of Lethbridge. The site and public CV reflect that correction; the Associate Dean service remains historical, from 2022 (the existing CV start year) through August 2026. This direct confirmation supersedes older role wording on institutional profiles.
+
 ## Maintenance
 
 - The custom domain is configured through `CNAME`.
