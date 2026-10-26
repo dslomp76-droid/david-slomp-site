@@ -14,6 +14,9 @@ import urllib.request
 
 AUTHOR_ID = "jtLduoQAAAAJ"  # Existing, published Google Scholar profile link.
 PROFILE_URL = f"https://scholar.google.com/citations?hl=en&user={AUTHOR_ID}"
+# The real provider response includes David's documented middle initial.
+# Official corroboration: https://www.ulethbridge.ca/sites/default/files/2019/06/2019_ss_ii_ed_5410_a_co_slomp.pdf
+EXPECTED_NAMES = {"david slomp", "david h. slomp", "david h slomp"}
 ROOT = Path(__file__).resolve().parents[1]
 START = "  <!-- BEGIN SCHOLAR METRICS -->"
 END = "  <!-- END SCHOLAR METRICS -->"
@@ -76,11 +79,7 @@ def normalize_payload(payload, now):
             raise ValueError
         stage = "author name"
         name = " ".join(payload["author"]["name"].split()).casefold()
-        if name != "david slomp":
-            # A documented name variant can be identified without logging response text;
-            # this is diagnostic only and does not relax the acceptance criterion.
-            if name in ("david h. slomp", "david h slomp"):
-                stage = "author name (documented middle-initial variant)"
+        if name not in EXPECTED_NAMES:
             raise ValueError
         stage = "citation table"
         table = payload["cited_by"]["table"]
