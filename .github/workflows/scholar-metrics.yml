@@ -1,0 +1,104 @@
+name: Weekly Google Scholar metrics
+
+on:
+  schedule:
+    # Mondays, 07:23 UTC. Off the busy start of the hour; scheduling is best-effort.
+    - cron: '23 7 * * 1'
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scholar-metrics-${{ github.event_name == 'pull_request' && github.ref || 'main' }}
+  cancel-in-progress: false
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Test validation, failure safety, and publication matching (no secrets/network)
+        run: python -m unittest discover -s tests -v
+      - name: Test freshness labels (no secrets/network)
+        run: node --test tests/scholar-status.test.js
+      - name: Check saved metrics match the homepage
+        run: python scripts/refresh_scholar.py --check
+
+  refresh:
+    needs: checks
+    if: >-
+      github.repository == 'dslomp76-droid/david-slomp-site' &&
+      github.ref == 'refs/heads/main' &&
+      (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'push')
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    # Limited to this trusted-main job. No PAT, administration, or OIDC permission.
+    permissions:
+      contents: write
+      pages: write
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: main
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Skip ordinary pushes after the initial verified snapshot
+        id: cadence
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          python - <<'PYTHON'
+          import json, os
+          from pathlib import Path
+          initial = json.loads(Path('data/scholar-metrics.json').read_text())['checked_at'] is None
+          refresh = os.environ['EVENT_NAME'] != 'push' or initial
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write(f'refresh={str(refresh).lower()}\n')
+          PYTHON
+      - name: Recheck current main before fetching
+        if: steps.cadence.outputs.refresh == 'true'
+        run: |
+          python -m unittest discover -s tests -v
+          node --test tests/scholar-status.test.js
+          python scripts/refresh_scholar.py --check
+      - name: Fetch and validate one fresh Scholar response
+        if: steps.cadence.outputs.refresh == 'true'
+        env:
+          SERPAPI_API_KEY: ${{ secrets.SERPAPI_API_KEY }}
+        run: python scripts/refresh_scholar.py
+      - name: Check generated files
+        if: steps.cadence.outputs.refresh == 'true'
+        run: python scripts/refresh_scholar.py --check
+      - name: Commit only the validated snapshot and homepage
+        if: steps.cadence.outputs.refresh == 'true'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- data/scholar-metrics.json index.html
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh verified Google Scholar metrics'
+            # Non-fast-forward rejection is intentional: never overwrite concurrent edits.
+            git push origin HEAD:main
+          fi
+      - name: Request the existing branch-based GitHub Pages build
+        if: steps.cadence.outputs.refresh == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # GITHUB_TOKEN commits alone do not trigger Pages. Keep the existing Pages
+          # source/settings and explicitly request its documented build endpoint.
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/pages/builds" --silent
+      - name: Verify the snapshot and homepage are publicly served
+        if: steps.cadence.outputs.refresh == 'true'
+        run: python scripts/verify_scholar_publish.py
