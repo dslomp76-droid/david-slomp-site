@@ -62,7 +62,10 @@ def counter(value):
 def normalize_payload(payload, now):
     stage = "response object"
     try:
-        if not isinstance(payload, dict) or "error" in payload:
+        if not isinstance(payload, dict):
+            raise ValueError
+        if "error" in payload:
+            stage = "provider-reported error"
             raise ValueError
         stage = "provider success status"
         if payload["search_metadata"]["status"] != "Success":
@@ -74,6 +77,10 @@ def normalize_payload(payload, now):
         stage = "author name"
         name = " ".join(payload["author"]["name"].split()).casefold()
         if name != "david slomp":
+            # A documented name variant can be identified without logging response text;
+            # this is diagnostic only and does not relax the acceptance criterion.
+            if name in ("david h. slomp", "david h slomp"):
+                stage = "author name (documented middle-initial variant)"
             raise ValueError
         stage = "citation table"
         table = payload["cited_by"]["table"]
