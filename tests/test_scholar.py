@@ -66,6 +66,13 @@ class ParserTests(unittest.TestCase):
         snapshot["author_id"] = "wrong"
         with self.assertRaises(r.RefreshError): r.validate_snapshot(snapshot)
 
+    def test_validation_diagnostics_only_contain_fixed_categories(self):
+        payload = fixture(); payload["author"]["name"] = "sensitive-untrusted-response-text"
+        with self.assertRaises(r.RefreshError) as caught:
+            r.normalize_payload(payload, NOW)
+        self.assertIn("author name", str(caught.exception))
+        self.assertNotIn("sensitive-untrusted", str(caught.exception))
+
     def test_name_normalization(self):
         payload = fixture(); payload["author"]["name"] = " DAVID   SLOMP "
         self.assertEqual(r.normalize_payload(payload, NOW)["author_name"], "David Slomp")
