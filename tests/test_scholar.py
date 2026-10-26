@@ -73,11 +73,15 @@ class ParserTests(unittest.TestCase):
         self.assertIn("author name", str(caught.exception))
         self.assertNotIn("sensitive-untrusted", str(caught.exception))
 
-    def test_documented_name_variant_is_diagnostic_only(self):
-        payload = fixture(); payload["author"]["name"] = "David H. Slomp"
-        with self.assertRaises(r.RefreshError) as caught:
-            r.normalize_payload(payload, NOW)
-        self.assertIn("documented middle-initial variant", str(caught.exception))
+    def test_documented_middle_initial_variants_keep_exact_profile_check(self):
+        for name in ("David H. Slomp", "David H Slomp"):
+            payload = fixture(); payload["author"]["name"] = name
+            self.assertEqual(r.normalize_payload(payload, NOW)["author_name"], "David Slomp")
+            payload["search_parameters"]["author_id"] = "wrong"
+            with self.assertRaises(r.RefreshError): r.normalize_payload(payload, NOW)
+        for name in ("David Slomp Jr", "David X. Slomp", "Someone David Slomp"):
+            payload = fixture(); payload["author"]["name"] = name
+            with self.assertRaises(r.RefreshError): r.normalize_payload(payload, NOW)
 
     def test_name_normalization(self):
         payload = fixture(); payload["author"]["name"] = " DAVID   SLOMP "
