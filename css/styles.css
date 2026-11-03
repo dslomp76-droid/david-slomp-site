@@ -584,12 +584,17 @@ hr.soft{
   justify-self:end;
 }
 
+.hero-portrait picture{
+  display:block;
+  width:100%;
+}
+
 .feature-image{
   width:100%;
   height:clamp(480px, 45vw, 640px);
   aspect-ratio:2 / 3;
   object-fit:cover;
-  object-position:90% center;
+  object-position:center;
   border-radius:16px;
   display:block;
 }

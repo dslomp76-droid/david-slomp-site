@@ -37,7 +37,7 @@ David confirmed that he stepped down as Associate Dean at the end of August 2026
 ## Maintenance
 
 - The custom domain is configured through `CNAME`.
-- `assets/images/david-slomp-hero-800.jpg` and `david-slomp-hero-1600.jpg` provide responsive, web-optimized hero images.
+- The 2026 headshot assets provide responsive, web-optimized portrait and landscape hero images plus dedicated About-page crops. The homepage uses the portrait at desktop widths and the landscape version on smaller screens to preserve a natural composition.
 - `assets/images/David SlompCMYK.jpeg` is not used on the website. It is retained as a print/media source asset.
 - Update publication links and the CV as new work is released.
 - Validate changed HTML and CSS before publishing.
