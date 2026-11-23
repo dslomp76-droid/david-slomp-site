@@ -4,12 +4,12 @@
   "author_name": "David Slomp",
   "source": "Google Scholar via SerpApi",
   "profile_url": "https://scholar.google.com/citations?hl=en&user=jtLduoQAAAAJ",
-  "checked_at": "2026-11-16T17:11:50Z",
+  "checked_at": "2026-11-23T19:21:52Z",
   "recent_since": 2021,
   "metrics": {
     "citations": {
-      "all": 1347,
-      "recent": 961
+      "all": 1353,
+      "recent": 967
     },
     "h_index": {
       "all": 19,
